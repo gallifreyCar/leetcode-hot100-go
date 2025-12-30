@@ -19,82 +19,47 @@ problems/
 ├── 001_two_sum/              # ✅ 两数之和（已完成）
 │   ├── solution.go
 │   └── solution_test.go
-├── 002_add_two_numbers/      # 📝 两数相加
-│   ├── solution.go
-│   └── solution_test.go
-├── 003_longest_substring_without_repeating/  # 📝 无重复字符的最长子串
-├── ...                       # 92 道题目
 ├── 049_group_anagrams/       # ✅ 字母异位词分组（多解法）
 │   ├── v1/                   # 解法1：排序+哈希表
-│   │   ├── solution.go
-│   │   └── solution_test.go
 │   ├── v2/                   # 解法2：计数+哈希表
-│   │   ├── solution.go
-│   │   └── solution_test.go
-│   ├── v3/                   # 解法3：slices包
-│   │   ├── solution.go
-│   │   └── solution_test.go
 │   └── solution_test.go      # 对比测试
-└── 128_longest_consecutive/  # ✅ 最长连续序列（已完成）
-    ├── solution.go
-    └── solution_test.go
+└── ...
 ```
-
-**说明**：
-- 单一解法的题目：直接在题目目录下的 `solution.go`
-- 多解法的题目：使用 `v1/`, `v2/`, `v3/` 子目录存放不同解法
 
 ## 🚀 使用方法
 
-### 测试单个题目
+### 1. 测试单个题目
 ```bash
 go test ./problems/001_two_sum -v
 ```
 
-### 测试某题的特定解法
+### 2. 测试特定解法
 ```bash
 go test ./problems/049_group_anagrams/v2 -v
 ```
 
-### 测试所有题目
+### 3. 性能对比
 ```bash
-go test ./problems/... -v
-```
-
-### 性能对比
-```bash
-# 对比某题的所有解法性能
 go test ./problems/049_group_anagrams -bench=. -benchmem
-
-# 单个解法的性能测试
-go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 ```
 
-### 在 IDE 中调试
-1. 打开 `v2/solution.go`
-2. 在代码中设置断点
-3. 打开 `v2/solution_test.go`
-4. 右键测试函数 → **Debug Test**
-
-## 📝 提交到 LeetCode
-
-函数名完全标准，直接复制粘贴即可：
+## 📊 题目列表
 
 **进度：3 / 92 题**
 
-<details>
-<summary><b>📊 哈希表（3题）</b></summary>
+<details open>
+<summary><b>🔑 哈希表 (Hash Table)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
 | 001 | [两数之和](problems/001_two_sum) | 简单 | ✅ |
-| 049 | [字母异位词分组](problems/049_group_anagrams) | 中等 | ✅ (3种解法) |
+| 049 | [字母异位词分组](problems/049_group_anagrams) | 中等 | ✅ |
 | 128 | [最长连续序列](problems/128_longest_consecutive) | 中等 | ✅ |
 
 </details>
 
 <details>
-<summary><b>🔄 双指针（4题）</b></summary>
+<summary><b>👉 双指针 (Two Pointers)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -106,33 +71,32 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>🪟 滑动窗口（5题）</b></summary>
+<summary><b>🪟 滑动窗口 (Sliding Window)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
 | 003 | [无重复字符的最长子串](problems/003_longest_substring_without_repeating) | 中等 | 📝 |
 | 438 | [找到字符串中所有字母异位词](problems/438_find_all_anagrams) | 中等 | 📝 |
-| 560 | [和为K的子数组](problems/560_subarray_sum_equals_k) | 中等 | 📝 |
-| 239 | [滑动窗口最大值](problems/239_sliding_window_maximum) | 困难 | 📝 |
 | 076 | [最小覆盖子串](problems/076_minimum_window_substring) | 困难 | 📝 |
 
 </details>
 
 <details>
-<summary><b>📦 子数组（5题）</b></summary>
+<summary><b>📦 子串 (Subarray)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
+| 560 | [和为K的子数组](problems/560_subarray_sum_equals_k) | 中等 | 📝 |
+| 239 | [滑动窗口最大值](problems/239_sliding_window_maximum) | 困难 | 📝 |
 | 053 | [最大子数组和](problems/053_maximum_subarray) | 中等 | 📝 |
 | 056 | [合并区间](problems/056_merge_intervals) | 中等 | 📝 |
 | 189 | [轮转数组](problems/189_rotate_array) | 中等 | 📝 |
 | 238 | [除自身以外数组的乘积](problems/238_product_except_self) | 中等 | 📝 |
-| 041 | [缺失的第一个正数](problems/041_first_missing_positive) | 困难 | 📝 |
 
 </details>
 
 <details>
-<summary><b>🔲 矩阵（4题）</b></summary>
+<summary><b>🔳 矩阵 (Matrix)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -144,7 +108,7 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>🔗 链表（14题）</b></summary>
+<summary><b>🔗 链表 (Linked List)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -166,7 +130,7 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>🌲 二叉树（15题）</b></summary>
+<summary><b>🌲 二叉树 (Binary Tree)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -189,7 +153,7 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>🗺️ 图论（4题）</b></summary>
+<summary><b>🗺️ 图论 (Graph)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -201,7 +165,7 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>🔙 回溯（8题）</b></summary>
+<summary><b>🔙 回溯 (Backtracking)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -217,7 +181,7 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>🔍 二分查找（6题）</b></summary>
+<summary><b>🔍 二分查找 (Binary Search)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -231,7 +195,7 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>📚 栈（5题）</b></summary>
+<summary><b>📚 栈 (Stack)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -244,7 +208,7 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>🏔️ 堆（3题）</b></summary>
+<summary><b>🏔️ 堆 (Heap)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -255,7 +219,7 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>🎯 贪心（4题）</b></summary>
+<summary><b>🎯 贪心 (Greedy)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -267,7 +231,7 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>💻 动态规划（10题）</b></summary>
+<summary><b>💻 动态规划 (Dynamic Programming)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -285,7 +249,7 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 </details>
 
 <details>
-<summary><b>🎲 多维动态规划（5题）</b></summary>
+<summary><b>🎲 多维动态规划 (Multidimensional DP)</b></summary>
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
@@ -296,34 +260,35 @@ go test ./problems/049_group_anagrams/v2 -bench=. -benchmem
 | 072 | [编辑距离](problems/072_edit_distance) | 中等 | 📝 |
 
 </details>
-| # | 题目 | 难度 | 状态 |
-|---|------|------|------|
-| 003 | [无重复字符的最长子串](problems/003_longest_substring_without_repeating) | 中等 | 📝 |
-| 438 | [找到字符串中所有字母异位词](problems/438_find_all_anagrams) | 中等 | 📝 |
-| 560 | [和为K的子数组](problems/560_subarray_sum_equals_k) | 中等 | 📝 |
-| 239 | [滑动窗口最大值](problems/239_sliding_window_maximum) | 困难 | 📝 |
-| 076 | [最小覆盖子串](problems/076_minimum_window_substring) | 困难 | 📝 |
 
-... 更多题目请查看目录
+## ➕ 添加新题目
 
-**图例**: ✅ 已完成 | 📝 待完成
+当你完成一道题目后：
 
-## 💡 命名规范
+1. **实现代码并测试**
+   ```bash
+   go test ./problems/283_move_zeroes -v
+   ```
 
-- **包名**：`v1`, `v2`, `v3` (多解法) 或直接使用题目名
-- **函数名**：与 LeetCode 完全一致（如 `TwoSum`, `GroupAnagrams`）
-- **文件名**：`solution.go`, `solution_test.go`
+2. **提交到 Git**
+   ```bash
+   git add .
+   git commit -m "feat: 完成 283. 移动零"
+   git push
+   ```
+
+如果需要多个解法，创建子目录：
+```bash
+mkdir problems/283_move_zeroes/v1
+mkdir problems/283_move_zeroes/v2
+# 分别在各自目录下创建 solution.go 和 solution_test.go
+```
 
 ## 🔧 环境要求
 
-- Go 1.21+（使用 `slices` 包）
-- 推荐使用 GoLand 或 VS Code
-
-## 📖 学习资源
-
-- [LeetCode Hot 100](https://leetcode.cn/studyplan/top-100-liked/)
-- [Go 语言圣经](https://gopl-zh.github.io/)
-- [代码随想录](https://programmercarl.com/)
+- **Go 1.25+**
+- 推荐使用 **GoLand** 或 **VS Code**
+- 已配置代理（端口 10808）用于 Git 推送
 
 ## 📄 License
 
