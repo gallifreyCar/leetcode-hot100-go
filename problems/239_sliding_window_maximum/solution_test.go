@@ -1,21 +1,48 @@
 package slidingwindowmaximum
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
-func TestSlidingWindowMaximum(t *testing.T) {
+func TestMaxSlidingWindow(t *testing.T) {
 	tests := []struct {
 		name string
-		// TODO: 添加测试用例字段
+		nums []int
+		k    int
+		want []int
 	}{
 		{
 			name: "示例1",
-			// TODO: 填充测试数据
+			nums: []int{1, 3, -1, -3, 5, 3, 6, 7},
+			k:    3,
+			want: []int{3, 3, 5, 5, 6, 7},
+		},
+		{
+			name: "示例2",
+			nums: []int{1},
+			k:    1,
+			want: []int{1},
+		},
+		{
+			name: "k等于数组长度",
+			nums: []int{1, 3, 2, 5},
+			k:    4,
+			want: []int{5},
+		},
+		{
+			name: "递增序列",
+			nums: []int{1, 2, 3, 4, 5},
+			k:    2,
+			want: []int{2, 3, 4, 5},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			if got := MaxSlidingWindow(tt.nums, tt.k); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("MaxSlidingWindow() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }

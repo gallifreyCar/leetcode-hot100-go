@@ -2,20 +2,54 @@ package minimumwindowsubstring
 
 import "testing"
 
-func TestMinimumWindowSubstring(t *testing.T) {
+func TestMinWindow(t *testing.T) {
 	tests := []struct {
 		name string
-		// TODO: 添加测试用例字段
+		s    string
+		t    string
+		want string
 	}{
 		{
 			name: "示例1",
-			// TODO: 填充测试数据
+			s:    "ADOBECODEBANC",
+			t:    "ABC",
+			want: "BANC",
+		},
+		{
+			name: "示例2",
+			s:    "a",
+			t:    "a",
+			want: "a",
+		},
+		{
+			name: "示例3",
+			s:    "a",
+			t:    "aa",
+			want: "",
+		},
+		{
+			name: "未找到",
+			s:    "abc",
+			t:    "xyz",
+			want: "",
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			if got := MinWindow(tt.s, tt.t); got != tt.want {
+				t.Errorf("MinWindow() = %v, want %v", got, tt.want)
+			}
+		})
+		t.Run(tt.name+"_V2", func(t *testing.T) {
+			if got := MinWindowV2(tt.s, tt.t); got != tt.want {
+				t.Errorf("MinWindowV2() = %v, want %v", got, tt.want)
+			}
+		})
+		t.Run(tt.name+"_V3", func(t *testing.T) {
+			if got := MinWindowV3(tt.s, tt.t); got != tt.want {
+				t.Errorf("MinWindowV3() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }
