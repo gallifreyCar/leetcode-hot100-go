@@ -2,20 +2,37 @@ package symmetrictree
 
 import "testing"
 
-func TestSymmetricTree(t *testing.T) {
+func TestIsSymmetric(t *testing.T) {
 	tests := []struct {
 		name string
-		// TODO: 添加测试用例字段
+		root *TreeNode
+		want bool
 	}{
 		{
-			name: "示例1",
-			// TODO: 填充测试数据
+			name: "对称树",
+			root: &TreeNode{
+				Val:   1,
+				Left:  &TreeNode{Val: 2, Left: &TreeNode{Val: 3}, Right: &TreeNode{Val: 4}},
+				Right: &TreeNode{Val: 2, Left: &TreeNode{Val: 4}, Right: &TreeNode{Val: 3}},
+			},
+			want: true,
+		},
+		{
+			name: "非对称树",
+			root: &TreeNode{
+				Val:   1,
+				Left:  &TreeNode{Val: 2, Right: &TreeNode{Val: 3}},
+				Right: &TreeNode{Val: 2, Right: &TreeNode{Val: 3}},
+			},
+			want: false,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			if got := IsSymmetric(tt.root); got != tt.want {
+				t.Errorf("IsSymmetric() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }
