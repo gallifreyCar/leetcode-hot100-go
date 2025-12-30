@@ -1,21 +1,66 @@
 package setmatrixzeroes
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
-func TestSetMatrixZeroes(t *testing.T) {
+func TestSetZeroes(t *testing.T) {
 	tests := []struct {
-		name string
-		// TODO: 添加测试用例字段
+		name   string
+		matrix [][]int
+		want   [][]int
 	}{
 		{
 			name: "示例1",
-			// TODO: 填充测试数据
+			matrix: [][]int{
+				{1, 1, 1},
+				{1, 0, 1},
+				{1, 1, 1},
+			},
+			want: [][]int{
+				{1, 0, 1},
+				{0, 0, 0},
+				{1, 0, 1},
+			},
+		},
+		{
+			name: "示例2",
+			matrix: [][]int{
+				{0, 1, 2, 0},
+				{3, 4, 5, 2},
+				{1, 3, 1, 5},
+			},
+			want: [][]int{
+				{0, 0, 0, 0},
+				{0, 4, 5, 0},
+				{0, 3, 1, 0},
+			},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			matrix := make([][]int, len(tt.matrix))
+			for i := range tt.matrix {
+				matrix[i] = make([]int, len(tt.matrix[i]))
+				copy(matrix[i], tt.matrix[i])
+			}
+			SetZeroes(matrix)
+			if !reflect.DeepEqual(matrix, tt.want) {
+				t.Errorf("SetZeroes() = %v, want %v", matrix, tt.want)
+			}
+		})
+		t.Run(tt.name+"_V2", func(t *testing.T) {
+			matrix := make([][]int, len(tt.matrix))
+			for i := range tt.matrix {
+				matrix[i] = make([]int, len(tt.matrix[i]))
+				copy(matrix[i], tt.matrix[i])
+			}
+			SetZeroesV2(matrix)
+			if !reflect.DeepEqual(matrix, tt.want) {
+				t.Errorf("SetZeroesV2() = %v, want %v", matrix, tt.want)
+			}
 		})
 	}
 }

@@ -1,21 +1,43 @@
 package productexceptself
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestProductExceptSelf(t *testing.T) {
 	tests := []struct {
 		name string
-		// TODO: 添加测试用例字段
+		nums []int
+		want []int
 	}{
 		{
 			name: "示例1",
-			// TODO: 填充测试数据
+			nums: []int{1, 2, 3, 4},
+			want: []int{24, 12, 8, 6},
+		},
+		{
+			name: "示例2",
+			nums: []int{-1, 1, 0, -3, 3},
+			want: []int{0, 0, 9, 0, 0},
+		},
+		{
+			name: "包含多个零",
+			nums: []int{0, 0, 1},
+			want: []int{0, 0, 0},
+		},
+		{
+			name: "单个零",
+			nums: []int{1, 0, 3},
+			want: []int{0, 3, 0},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			if got := ProductExceptSelf(tt.nums); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ProductExceptSelf() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }
