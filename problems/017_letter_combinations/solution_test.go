@@ -1,21 +1,42 @@
 package lettercombinations
 
-import "testing"
+import (
+	"reflect"
+	"sort"
+	"testing"
+)
 
 func TestLetterCombinations(t *testing.T) {
 	tests := []struct {
-		name string
-		// TODO: 添加测试用例字段
+		name   string
+		digits string
+		want   []string
 	}{
 		{
-			name: "示例1",
-			// TODO: 填充测试数据
+			name:   "示例1",
+			digits: "23",
+			want:   []string{"ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"},
+		},
+		{
+			name:   "空字符串",
+			digits: "",
+			want:   []string{},
+		},
+		{
+			name:   "单个数字",
+			digits: "2",
+			want:   []string{"a", "b", "c"},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			got := LetterCombinations(tt.digits)
+			sort.Strings(got)
+			sort.Strings(tt.want)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("LetterCombinations() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }

@@ -2,20 +2,44 @@ package validparentheses
 
 import "testing"
 
-func TestValidParentheses(t *testing.T) {
+func TestIsValid(t *testing.T) {
 	tests := []struct {
 		name string
-		// TODO: 添加测试用例字段
+		s    string
+		want bool
 	}{
 		{
 			name: "示例1",
-			// TODO: 填充测试数据
+			s:    "()",
+			want: true,
+		},
+		{
+			name: "示例2",
+			s:    "()[]{}",
+			want: true,
+		},
+		{
+			name: "示例3",
+			s:    "(]",
+			want: false,
+		},
+		{
+			name: "示例4",
+			s:    "([)]",
+			want: false,
+		},
+		{
+			name: "嵌套括号",
+			s:    "{[]}",
+			want: true,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			if got := IsValid(tt.s); got != tt.want {
+				t.Errorf("IsValid() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }
