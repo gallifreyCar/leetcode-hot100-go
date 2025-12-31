@@ -1,9 +1,23 @@
-package linkedlistcycle
+﻿package linkedlistcycle
 
-// 141. 环形链表
-// 难度：简单
-// 标签：链表、双指针
-// 链接：https://leetcode.cn/problems/linked_list_cycle/
-func LinkedListCycle() {
-	// TODO: 实现代码
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+// HasCycle 蹇參鎸囬拡瑙ｆ硶
+// 鏃堕棿澶嶆潅搴? O(n)
+// 绌洪棿澶嶆潅搴? O(1)
+func HasCycle(head *ListNode) bool {
+	//蹇參鎸囬拡
+	fast := head
+	slow := head
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+		if fast == slow {
+			return true
+		}
+	}
+	return false
 }

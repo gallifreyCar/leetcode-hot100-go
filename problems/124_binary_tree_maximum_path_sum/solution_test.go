@@ -1,21 +1,38 @@
-package binarytreemaximumpathsum
+﻿package maximumpathsum
 
 import "testing"
 
-func TestBinaryTreeMaximumPathSum(t *testing.T) {
+func TestMaxPathSum(t *testing.T) {
 	tests := []struct {
 		name string
-		// TODO: 添加测试用例字段
+		root *TreeNode
+		want int
 	}{
 		{
-			name: "示例1",
-			// TODO: 填充测试数据
+			name: "Example_1",
+			root: &TreeNode{
+				Val:   1,
+				Left:  &TreeNode{Val: 2},
+				Right: &TreeNode{Val: 3},
+			},
+			want: 6,
+		},
+		{
+			name: "Example_2",
+			root: &TreeNode{
+				Val:   -10,
+				Left:  &TreeNode{Val: 9},
+				Right: &TreeNode{Val: 20, Left: &TreeNode{Val: 15}, Right: &TreeNode{Val: 7}},
+			},
+			want: 42,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			if got := maxPathSum(tt.root); got != tt.want {
+				t.Errorf("maxPathSum() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }

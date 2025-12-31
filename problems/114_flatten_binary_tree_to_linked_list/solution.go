@@ -1,9 +1,4 @@
-package flattenbinarytreetolinkedlist
-
-// 114. 二叉树展开为链表
-// 难度：中等
-// 标签：树、深度优先搜索
-// 链接：https://leetcode.cn/problems/flatten_binary_tree_to_linked_list/
+﻿package flattenbinarytree
 
 type TreeNode struct {
 	Val   int
@@ -11,28 +6,21 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// Flatten 递归
-// 时间复杂度: O(n)
-// 空间复杂度: O(h)
-func Flatten(root *TreeNode) {
-	if root == nil {
-		return
+func flatten(root *TreeNode) {
+	var pre *TreeNode //鍓嶉┍鎸囬拡
+	var dfs func(node *TreeNode)
+	dfs = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		//瑕佹眰锛氬厛搴忛亶鍘嗛『搴忔槸 鏍瑰乏鍙?
+		//鐜板湪瑕佷粠涓嬪線涓婃帴锛屽繀椤诲弽杩囨潵 鍙冲乏鏍?
+		dfs(node.Right)
+		dfs(node.Left)
+
+		node.Right = pre
+		node.Left = nil
+		pre = node
 	}
-
-	Flatten(root.Left)
-	Flatten(root.Right)
-
-	// 保存右子树
-	rightSubtree := root.Right
-	// 将左子树移动到右子树
-	root.Right = root.Left
-	root.Left = nil
-
-	// 找到当前右子树的最右节点
-	current := root
-	for current.Right != nil {
-		current = current.Right
-	}
-	// 将原来的右子树连接到最右节点
-	current.Right = rightSubtree
+	dfs(root)
 }

@@ -1,162 +1,55 @@
-package minimumwindowsubstring
+﻿package minimumwindow
 
-// 76. 最小覆盖子串
-// 难度：困难
-// 标签：滑动窗口、哈希表
-// 链接：https://leetcode.cn/problems/minimum_window_substring/
+func minWindow(s string, t string) string {
+	need := [128]int{}   // 缁熻T
+	window := [128]int{} // 缁熻绐楀彛鐨?
+	needKinds := 0       // 闇€瑕佺殑瀛楃绉嶇被鏁?
+	validKinds := 0      // 绗﹀悎鏉′欢鐨勫瓧绗︾绫绘暟
+	res := ""            // 缁撴灉
+	resLen := len(s) + 1 // 鐢ㄤ簬鍒ゆ柇鏈€鐭潯浠?
 
-// MinWindow 滑动窗口+哈希表
-// 时间复杂度: O(n)
-// 空间复杂度: O(字符集大小)
-func MinWindow(s string, t string) string {
-	if len(s) < len(t) {
-		return ""
-	}
-
-	tCount := make(map[byte]int)
-	sCount := make(map[byte]int)
-
-	// 统计t中字符频率
-	for i := 0; i < len(t); i++ {
-		tCount[t[i]]++
-	}
-
-	l, r := 0, 0
-	minLen := len(s) + 1
-	minStart := 0
-	valid := 0 // 符合要求的字符个数
-
-	for r < len(s) {
-		// 扩大窗口
-		c := s[r]
-		r++
-		if _, exists := tCount[c]; exists {
-			sCount[c]++
-			if sCount[c] == tCount[c] {
-				valid++
-			}
+	// T 涓渶瑕佹弧瓒崇殑瀛楃绉嶇被鏁?
+	for _, c := range t {
+		// 鏌愪釜瀛楃绗竴娆″嚭鐜?needKinds++
+		if need[c] == 0 {
+			needKinds++
 		}
-
-		// 缩小窗口
-		for valid == len(tCount) {
-			// 更新最小覆盖子串
-			if r-l < minLen {
-				minStart = l
-				minLen = r - l
-			}
-
-			// 移除左边字符
-			d := s[l]
-			l++
-			if _, exists := tCount[d]; exists {
-				if sCount[d] == tCount[d] {
-					valid--
-				}
-				sCount[d]--
-			}
-		}
+		need[c]++
 	}
 
-	if minLen == len(s)+1 {
-		return ""
-	}
-	return s[minStart : minStart+minLen]
-}
-
-// MinWindowV2 优化：使用need记录还需要的字符数
-// 时间复杂度: O(n)
-// 空间复杂度: O(字符集大小)
-func MinWindowV2(s string, t string) string {
-	if len(s) < len(t) {
-		return ""
-	}
-
-	need := make(map[byte]int)
-	window := make(map[byte]int)
-
-	for i := 0; i < len(t); i++ {
-		need[t[i]]++
-	}
-
-	l, r := 0, 0
-	minLen := len(s) + 1
 	start := 0
-	valid := 0
-
-	for r < len(s) {
-		c := s[r]
-		r++
-		if _, exists := need[c]; exists {
-			window[c]++
-			if window[c] == need[c] {
-				valid++
-			}
+	for end, ec := range s {
+		//1.鏂板鍏冪礌
+		window[ec]++
+		// 闇€瑕佽瀛楃涓旀暟閲忎篃杈炬爣
+		if need[ec] > 0 && need[ec] == window[ec] {
+			//鏈変竴涓瓧绗︾绫绘暟閲忚揪鏍?+1
+			//姣斿 A闇€瑕?涓紝绐楀彛鍐呭垰濂芥湁2涓紝杈炬爣
+			validKinds++
 		}
 
-		for valid == len(need) {
-			if r-l < minLen {
-				start = l
-				minLen = r - l
+		//2.鏀剁缉绐楀彛 锛堟墍鏈夊瓧绗︾绫婚渶瑕佺殑鏁伴噺閮芥弧瓒宠姹傦級
+		for validKinds == needKinds {
+			//鏇存柊缁撴灉
+			if end-start+1 < resLen {
+				res = s[start : end+1]
+				resLen = end - start + 1
 			}
-
-			d := s[l]
-			l++
-			if _, exists := need[d]; exists {
-				if window[d] == need[d] {
-					valid--
-				}
-				window[d]--
+			sc := s[start]
+			//鏀剁缉杈圭晫
+			//棰勫垽鏂紝濡傛灉绐楀彛宸﹁竟鐣屽垰濂芥槸闇€瑕佺殑瀛楃绉嶇被涓旀暟閲忚揪鏍囷紝鍑虹獥鍙ｅ悗锛岃揪鏍囧瓧绗︾绫绘暟-1
+			if need[sc] > 0 && need[sc] == window[sc] {
+				//绐楀彛宸﹁竟鐣屽瓧姣嶅噺灏戝悗锛屽彲鑳藉氨涓嶈揪鏍囦簡
+				validKinds--
 			}
+			window[sc]--
+			start++
 		}
 	}
 
-	if minLen == len(s)+1 {
+	//鎵句笉鍒?
+	if resLen == len(s)+1 {
 		return ""
 	}
-	return s[start : start+minLen]
-}
-
-// MinWindowV3 再优化：只在必要时检查
-// 时间复杂度: O(n)
-// 空间复杂度: O(字符集大小)
-func MinWindowV3(s string, t string) string {
-	if len(s) < len(t) {
-		return ""
-	}
-
-	need := make(map[byte]int)
-	for i := 0; i < len(t); i++ {
-		need[t[i]]++
-	}
-
-	l, r := 0, 0
-	minLen := len(s) + 1
-	start := 0
-	required := len(t)
-
-	for r < len(s) {
-		if need[s[r]] > 0 {
-			required--
-		}
-		need[s[r]]--
-		r++
-
-		for required == 0 {
-			if r-l < minLen {
-				start = l
-				minLen = r - l
-			}
-
-			need[s[l]]++
-			if need[s[l]] > 0 {
-				required++
-			}
-			l++
-		}
-	}
-
-	if minLen == len(s)+1 {
-		return ""
-	}
-	return s[start : start+minLen]
+	return res
 }

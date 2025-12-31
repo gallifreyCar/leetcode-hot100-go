@@ -1,25 +1,19 @@
-package rotateimage
+﻿package rotateimage
 
-import "slices"
-
-// 48. 旋转图像
-// 难度：中等
-// 标签：数组、矩阵
-// 链接：https://leetcode.cn/problems/rotate_image/
-
-// Rotate 先转置再翻转每一行
-// 时间复杂度: O(n²)
-// 空间复杂度: O(1)
-func Rotate(matrix [][]int) {
-	n := len(matrix)
-	// 转置矩阵
-	for i := 0; i < n; i++ {
-		for j := i + 1; j < n; j++ {
+func rotate(matrix [][]int) {
+	//瀵硅绾垮弽杞?
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < i; j++ {
 			matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 		}
 	}
-	// 翻转每一行
-	for i := 0; i < n; i++ {
-		slices.Reverse(matrix[i])
+	//宸﹀彸缈昏浆
+	for i := 0; i < len(matrix); i++ {
+		left, right := 0, len(matrix[0])-1
+		for left < right {
+			matrix[i][left], matrix[i][right] = matrix[i][right], matrix[i][left]
+			left++
+			right--
+		}
 	}
 }

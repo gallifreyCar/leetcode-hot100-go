@@ -1,11 +1,4 @@
-package validatebinarysearchtree
-
-import "math"
-
-// 98. 验证二叉搜索树
-// 难度：中等
-// 标签：树、深度优先搜索、二叉搜索树
-// 链接：https://leetcode.cn/problems/validate_binary_search_tree/
+﻿package validatebst
 
 type TreeNode struct {
 	Val   int
@@ -13,19 +6,25 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// IsValidBST 递归验证
-// 时间复杂度: O(n)
-// 空间复杂度: O(h)
-func IsValidBST(root *TreeNode) bool {
-	return isValidBSTHelper(root, math.MinInt64, math.MaxInt64)
-}
-
-func isValidBSTHelper(node *TreeNode, min, max int) bool {
-	if node == nil {
-		return true
+func isValidBST(root *TreeNode) bool {
+	var pre *TreeNode
+	var inorder func(node *TreeNode) bool
+	//BST 鐨勪腑搴忛亶鍘嗘槸涓ユ牸閫掑搴忓垪
+	inorder = func(node *TreeNode) bool {
+		if node == nil {
+			return true
+		}
+		//宸﹁妭鐐?
+		if !inorder(node.Left) {
+			return false
+		}
+		//鍜屼笂涓€涓闂殑鑺傜偣姣旇緝锛岀湅鐪嬫槸鍚﹀悎娉曪紙鍗曡皟閫掑锛?
+		if pre != nil && node.Val <= pre.Val {
+			return false
+		}
+		pre = node
+		//鍙宠妭鐐?
+		return inorder(node.Right)
 	}
-	if node.Val <= min || node.Val >= max {
-		return false
-	}
-	return isValidBSTHelper(node.Left, min, node.Val) && isValidBSTHelper(node.Right, node.Val, max)
+	return inorder(root)
 }

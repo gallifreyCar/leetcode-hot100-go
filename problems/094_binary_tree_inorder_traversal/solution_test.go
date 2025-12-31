@@ -1,4 +1,4 @@
-package binarytreeinordertraversal
+﻿package inordertraversal
 
 import (
 	"reflect"
@@ -12,23 +12,17 @@ func TestInorderTraversal(t *testing.T) {
 		want []int
 	}{
 		{
-			name: "示例1",
-			root: &TreeNode{
-				Val: 1,
-				Right: &TreeNode{
-					Val:  2,
-					Left: &TreeNode{Val: 3},
-				},
-			},
+			name: "Example_1",
+			root: &TreeNode{Val: 1, Right: &TreeNode{Val: 2, Left: &TreeNode{Val: 3}}},
 			want: []int{1, 3, 2},
 		},
 		{
-			name: "空树",
+			name: "Empty",
 			root: nil,
 			want: []int{},
 		},
 		{
-			name: "单节点",
+			name: "Single",
 			root: &TreeNode{Val: 1},
 			want: []int{1},
 		},
@@ -36,8 +30,8 @@ func TestInorderTraversal(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := InorderTraversal(tt.root); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InorderTraversal() = %v, want %v", got, tt.want)
+			if got := inorderTraversal(tt.root); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("inorderTraversal() = %v, want %v", got, tt.want)
 			}
 		})
 	}

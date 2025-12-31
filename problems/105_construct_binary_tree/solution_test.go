@@ -1,21 +1,40 @@
-package constructbinarytree
+﻿package constructbinarytree
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
-func TestConstructBinaryTree(t *testing.T) {
+func TestBuildTree(t *testing.T) {
 	tests := []struct {
-		name string
-		// TODO: 添加测试用例字段
+		name     string
+		preorder []int
+		inorder  []int
+		want     *TreeNode
 	}{
 		{
-			name: "示例1",
-			// TODO: 填充测试数据
+			name:     "Example_1",
+			preorder: []int{3, 9, 20, 15, 7},
+			inorder:  []int{9, 3, 15, 20, 7},
+			want: &TreeNode{
+				Val:   3,
+				Left:  &TreeNode{Val: 9},
+				Right: &TreeNode{Val: 20, Left: &TreeNode{Val: 15}, Right: &TreeNode{Val: 7}},
+			},
+		},
+		{
+			name:     "Example_2",
+			preorder: []int{-1},
+			inorder:  []int{-1},
+			want:     &TreeNode{Val: -1},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			if got := buildTree(tt.preorder, tt.inorder); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("buildTree() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }

@@ -1,4 +1,4 @@
-package minimumwindowsubstring
+﻿package minimumwindow
 
 import "testing"
 
@@ -10,45 +10,29 @@ func TestMinWindow(t *testing.T) {
 		want string
 	}{
 		{
-			name: "示例1",
+			name: "Example_1",
 			s:    "ADOBECODEBANC",
 			t:    "ABC",
 			want: "BANC",
 		},
 		{
-			name: "示例2",
+			name: "Example_2",
 			s:    "a",
 			t:    "a",
 			want: "a",
 		},
 		{
-			name: "示例3",
+			name: "Example_3",
 			s:    "a",
 			t:    "aa",
-			want: "",
-		},
-		{
-			name: "未找到",
-			s:    "abc",
-			t:    "xyz",
 			want: "",
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := MinWindow(tt.s, tt.t); got != tt.want {
-				t.Errorf("MinWindow() = %v, want %v", got, tt.want)
-			}
-		})
-		t.Run(tt.name+"_V2", func(t *testing.T) {
-			if got := MinWindowV2(tt.s, tt.t); got != tt.want {
-				t.Errorf("MinWindowV2() = %v, want %v", got, tt.want)
-			}
-		})
-		t.Run(tt.name+"_V3", func(t *testing.T) {
-			if got := MinWindowV3(tt.s, tt.t); got != tt.want {
-				t.Errorf("MinWindowV3() = %v, want %v", got, tt.want)
+			if got := minWindow(tt.s, tt.t); got != tt.want {
+				t.Errorf("minWindow() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -1,37 +1,34 @@
-package numberofislands
+﻿package numberofislands
 
-// 200. 岛屿数量
-// 难度：中等
-// 标签：深度优先搜索、广度优先搜索
-// 链接：https://leetcode.cn/problems/number_of_islands/
-
-// NumIslands DFS
-// 时间复杂度: O(m*n)
-// 空间复杂度: O(m*n)
-func NumIslands(grid [][]byte) int {
-	if len(grid) == 0 {
+func numIslands(grid [][]byte) int {
+	if len(grid) == 0 || len(grid[0]) == 0 {
 		return 0
 	}
 
-	count := 0
-	for i := 0; i < len(grid); i++ {
-		for j := 0; j < len(grid[0]); j++ {
+	m, n := len(grid), len(grid[0])
+	cnt := 0
+	var dfs func(i, j int)
+	dfs = func(i, j int) {
+		//越界or不是陆地，直接返回
+		if i < 0 || i >= m || j < 0 || j >= n || grid[i][j] != '1' {
+			return
+		}
+		//把陆地变成水
+		grid[i][j] = '0'
+		//往四个方向走
+		dfs(i-1, j)
+		dfs(i, j-1)
+		dfs(i, j+1)
+		dfs(i+1, j)
+	}
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
 			if grid[i][j] == '1' {
-				count++
-				dfs(grid, i, j)
+				cnt++
+				dfs(i, j)
 			}
+
 		}
 	}
-	return count
-}
-
-func dfs(grid [][]byte, i, j int) {
-	if i < 0 || i >= len(grid) || j < 0 || j >= len(grid[0]) || grid[i][j] == '0' {
-		return
-	}
-	grid[i][j] = '0' // 标记为已访问
-	dfs(grid, i-1, j)
-	dfs(grid, i+1, j)
-	dfs(grid, i, j-1)
-	dfs(grid, i, j+1)
+	return cnt
 }

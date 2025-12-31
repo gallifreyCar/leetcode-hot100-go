@@ -1,36 +1,31 @@
-package intersectionoftwolinkedlists
-
-// 160. 相交链表
-// 难度：简单
-// 标签：链表、双指针
-// 链接：https://leetcode.cn/problems/intersection_of_two_linked_lists/
+﻿package intersectionoftwolinkedlists
 
 type ListNode struct {
 	Val  int
 	Next *ListNode
 }
 
-// GetIntersectionNode 双指针
-// 时间复杂度: O(m+n)
-// 空间复杂度: O(1)
+// GetIntersectionNode 鍙屾寚閽堣В娉?
+// 鏃堕棿澶嶆潅搴? O(m+n)
+// 绌洪棿澶嶆潅搴? O(1)
 func GetIntersectionNode(headA, headB *ListNode) *ListNode {
 	if headA == nil || headB == nil {
 		return nil
 	}
-
-	pA, pB := headA, headB
-	// 当pA和pB相遇时，就是相交节点
-	for pA != pB {
-		if pA == nil {
-			pA = headB
+	curA := headA
+	curB := headB
+	for curB != curA {
+		if curA != nil {
+			curA = curA.Next
 		} else {
-			pA = pA.Next
+			curA = headB
 		}
-		if pB == nil {
-			pB = headA
+
+		if curB != nil {
+			curB = curB.Next
 		} else {
-			pB = pB.Next
+			curB = headA
 		}
 	}
-	return pA
+	return curA
 }

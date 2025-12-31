@@ -1,21 +1,38 @@
-package validatebinarysearchtree
+﻿package validatebst
 
 import "testing"
 
-func TestValidateBinarySearchTree(t *testing.T) {
+func TestIsValidBST(t *testing.T) {
 	tests := []struct {
 		name string
-		// TODO: 添加测试用例字段
+		root *TreeNode
+		want bool
 	}{
 		{
-			name: "示例1",
-			// TODO: 填充测试数据
+			name: "Example_1",
+			root: &TreeNode{
+				Val:   2,
+				Left:  &TreeNode{Val: 1},
+				Right: &TreeNode{Val: 3},
+			},
+			want: true,
+		},
+		{
+			name: "Example_2",
+			root: &TreeNode{
+				Val:   5,
+				Left:  &TreeNode{Val: 1},
+				Right: &TreeNode{Val: 4, Left: &TreeNode{Val: 3}, Right: &TreeNode{Val: 6}},
+			},
+			want: false,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			if got := isValidBST(tt.root); got != tt.want {
+				t.Errorf("isValidBST() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }

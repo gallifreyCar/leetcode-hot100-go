@@ -1,77 +1,82 @@
-package lrucache
-
-// 146. LRU缓存
-// 难度：中等
-// 标签：设计、哈希表、链表
-// 链接：https://leetcode.cn/problems/lru_cache/
+﻿package lrucache
 
 type Node struct {
-	key, value int
+	key, val   int
 	prev, next *Node
 }
 
 type LRUCache struct {
 	capacity int
+	dummy    *Node //铏氭嫙澶磋妭鐐?
+	tail     *Node //铏氭嫙灏捐妭鐐?
 	cache    map[int]*Node
-	head     *Node
-	tail     *Node
 }
 
 func Constructor(capacity int) LRUCache {
-	head := &Node{}
+
+	dummy := &Node{}
 	tail := &Node{}
-	head.next = tail
-	tail.prev = head
+	dummy.next = tail
+	tail.prev = dummy
+
 	return LRUCache{
 		capacity: capacity,
 		cache:    make(map[int]*Node),
-		head:     head,
+		dummy:    dummy,
 		tail:     tail,
 	}
 }
 
 func (this *LRUCache) Get(key int) int {
-	if node, exists := this.cache[key]; exists {
+	if node, ok := this.cache[key]; ok {
 		this.moveToHead(node)
-		return node.value
+		return node.val
 	}
 	return -1
 }
 
-func (this *LRUCache) Put(key int, value int) {
-	if node, exists := this.cache[key]; exists {
-		node.value = value
-		this.moveToHead(node)
-	} else {
-		node := &Node{key: key, value: value}
-		this.cache[key] = node
-		this.addToHead(node)
-		if len(this.cache) > this.capacity {
-			removed := this.removeTail()
-			delete(this.cache, removed.key)
-		}
-	}
-}
-
+// 鏂板厓绱犳坊鍔犲埌澶磋妭鐐?
 func (this *LRUCache) addToHead(node *Node) {
-	node.prev = this.head
-	node.next = this.head.next
-	this.head.next.prev = node
-	this.head.next = node
+	node.prev = this.dummy
+	node.next = this.dummy.next
+	this.dummy.next.prev = node
+	this.dummy.next = node
 }
 
+// 绉婚櫎鑺傜偣
 func (this *LRUCache) removeNode(node *Node) {
 	node.prev.next = node.next
 	node.next.prev = node.prev
 }
 
+// 绉婚櫎灏捐妭鐐?瑕佽繑鍥炵粰鍝堝笇琛ㄥ垹闄?
+func (this *LRUCache) removeTail() *Node {
+	node := this.tail.prev
+	this.removeNode(node)
+	return node
+}
+
+// 绉诲姩鍒板ご鑺傜偣
 func (this *LRUCache) moveToHead(node *Node) {
 	this.removeNode(node)
 	this.addToHead(node)
 }
 
-func (this *LRUCache) removeTail() *Node {
-	node := this.tail.prev
-	this.removeNode(node)
-	return node
+func (this *LRUCache) Put(key int, value int) {
+	//瀛樺湪
+	if node, ok := this.cache[key]; ok {
+		node.val = value
+		this.moveToHead(node)
+		return
+	}
+
+	node := &Node{key: key, val: value}
+	this.cache[key] = node
+	this.addToHead(node)
+
+	if len(this.cache) > this.capacity {
+		removeTail := this.removeTail()
+		delete(this.cache, removeTail.key)
+	}
+
 }

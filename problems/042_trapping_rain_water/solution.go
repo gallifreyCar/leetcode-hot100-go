@@ -1,74 +1,24 @@
-package trappingrainwater
+﻿package trappingrainwater
 
-// 42. 接雨水
-// 难度：困难
-// 标签：双指针、动态规划、栈
-// 链接：https://leetcode.cn/problems/trapping_rain_water/
+func trap(height []int) int {
+	// 鏈寸礌瑙ｆ硶鎬濊矾锛?姣忓垪鍌ㄦ按楂樺害鍙鑰冭檻姣忓垪鐨勫乏杈瑰拰鍙宠竟鐨勫偍姘撮珮搴﹀氨琛?
+	// LeftMax,cur,RightMax
+	// curWaterHeight= if(min(LeftMax,RightMax)>cur) min-cur
+	// 鍔ㄦ€佽鍒? 涓嶇敤姣忔閬嶅巻閲岄潰鍐峟or鎵綥eftMax锛孯ightMax
+	// 鍙互鍙亶鍘嗕竴娆℃妸缁撴灉鐢ㄦ暟缁勫瓨鍌ㄤ笅鏉?
+	// 鍙屾寚閽堟槸鍔ㄦ€佽鍒掍笂浼樺寲锛?鎶婂乏鍙充袱杈规渶楂橀珮搴︿綅缃敤涓や釜鎸囬拡瀛樺偍灏卞彲浠ヤ簡
 
-// Trap 朴素解法：每列储水高度只要考虑每列的最左和最右的储水高度
-// 时间复杂度: O(n²)
-// 空间复杂度: O(1)
-func Trap(height []int) int {
-	res := 0
-	//最左和最右存储不了水，直接从 1遍历到 len(height)-2
-	for i := 1; i < len(height)-1; i++ {
-		maxLeft := 0
-		maxRight := 0
-		cur := height[i]
-		// 向左遍历找出除自己外最高的柱子
-		for j := i - 1; j >= 0; j-- {
-			maxLeft = max(maxLeft, height[j])
-		}
-		// 向右遍历找出除自己外最高的柱子
-		for k := i + 1; k <= len(height)-1; k++ {
-			maxRight = max(maxRight, height[k])
-		}
-		// 两边的最高柱均高于当前柱子高度，该列可储水
-		if min(maxLeft, maxRight) > cur {
-			res += min(maxLeft, maxRight) - cur
-		}
-	}
-	return res
-}
-
-// TrapV2 动态规划优化：预先计算每个位置的左右最大值
-// 时间复杂度: O(n)
-// 空间复杂度: O(n)
-func TrapV2(height []int) int {
-	res := 0
-	LeftMax := make([]int, len(height))
-	RightMax := make([]int, len(height))
-	LeftMax[0] = 0
-	RightMax[len(height)-1] = 0
-
-	for i := 1; i < len(height)-1; i++ {
-		LeftMax[i] = max(LeftMax[i-1], height[i-1])
-	}
-	for i := len(height) - 2; i > 0; i-- {
-		RightMax[i] = max(RightMax[i+1], height[i+1])
-	}
-	//最左和最右存储不了水
-	for i := 1; i < len(height)-1; i++ {
-		cur := height[i]
-		minHeight := min(LeftMax[i], RightMax[i])
-		if minHeight > cur {
-			res += minHeight - cur
-		}
-	}
-	return res
-}
-
-// TrapV3 双指针优化：空间优化到O(1)
-// 时间复杂度: O(n)
-// 空间复杂度: O(1)
-func TrapV3(height []int) int {
 	res := 0
 	LeftMax := 0
 	RightMax := 0
-	l := 1
-	r := len(height) - 2
+	l := 1               //宸︽寚閽?鏈€宸﹀拰鏈€鍙冲瓨鍌ㄤ笉浜嗘按锛岀洿鎺ヤ粠 1閬嶅巻鍒?len(height)-2
+	r := len(height) - 2 //鍙虫寚閽?
 
+	// 涓や釜鎸囬拡閮藉悜涓棿闈犳嫝
 	for l <= r {
+		// 閲嶈锛佷袱杈瑰悓鏃跺紑宸?锛坙鎸囬拡锛夋渶宸LeftMax鏄繀瀹氬皬浜庣瓑浜庯紙r鎸囬拡锛夋渶鍙砵LeftMax锛堟渶鍙冲彸鐨勫乏鎷ユ湁鏇村ぇ鐨勮寖鍥达級
+		// 鍙嶈繃鏉?锛坙鎸囬拡锛夋渶宸︾殑鍙砵RightMax 蹇呴』澶т簬绛変簬锛坮鎸囬拡锛夋渶鍙砵RightMax
+		// 鐜板湪鎴戜滑鍙鑰冭檻涓よ竟鐨勭煭鏉跨殑灏卞彲浠ヤ簡锛堜篃灏辨槸鏈€宸?l鎸囬拡)鐨刬LeftMax鍜屾渶鍙?r鎸囬拡)鐨刯RightMax
 		if height[l-1] < height[r+1] {
 			LeftMax = max(LeftMax, height[l-1])
 			cur := height[l]

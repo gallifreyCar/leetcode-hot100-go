@@ -1,21 +1,42 @@
-package binarytreerightsideview
+﻿package rightsideview
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
-func TestBinaryTreeRightSideView(t *testing.T) {
+func TestRightSideView(t *testing.T) {
 	tests := []struct {
 		name string
-		// TODO: 添加测试用例字段
+		root *TreeNode
+		want []int
 	}{
 		{
-			name: "示例1",
-			// TODO: 填充测试数据
+			name: "Example_1",
+			root: &TreeNode{
+				Val:   1,
+				Left:  &TreeNode{Val: 2, Right: &TreeNode{Val: 5}},
+				Right: &TreeNode{Val: 3, Right: &TreeNode{Val: 4}},
+			},
+			want: []int{1, 3, 4},
+		},
+		{
+			name: "Example_2",
+			root: &TreeNode{Val: 1, Right: &TreeNode{Val: 3}},
+			want: []int{1, 3},
+		},
+		{
+			name: "Empty",
+			root: nil,
+			want: nil,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			if got := rightSideView(tt.root); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("rightSideView() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }

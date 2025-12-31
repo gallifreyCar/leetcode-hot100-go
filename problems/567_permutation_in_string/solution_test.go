@@ -12,7 +12,7 @@ func TestCheckInclusion(t *testing.T) {
 		{"example1", "ab", "eidbaooo", true},
 		{"example2", "ab", "eidboaoo", false},
 		{"single", "a", "a", true},
-		{"not_found", "abc", "bbbca", false},
+		{"not_found", "abc", "bbbd", false},
 	}
 
 	for _, tt := range tests {

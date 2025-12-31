@@ -1,9 +1,4 @@
-package binarytreeinordertraversal
-
-// 94. 二叉树的中序遍历
-// 难度：简单
-// 标签：树、栈
-// 链接：https://leetcode.cn/problems/binary_tree_inorder_traversal/
+﻿package inordertraversal
 
 type TreeNode struct {
 	Val   int
@@ -11,20 +6,18 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// InorderTraversal 递归
-// 时间复杂度: O(n)
-// 空间复杂度: O(n)
-func InorderTraversal(root *TreeNode) []int {
-	res := []int{}
-	var inorder func(*TreeNode)
-	inorder = func(node *TreeNode) {
+func inorderTraversal(root *TreeNode) []int {
+	res := make([]int, 0)
+	var dfs func(node *TreeNode)
+	dfs = func(node *TreeNode) {
 		if node == nil {
 			return
 		}
-		inorder(node.Left)
+		dfs(node.Left)
 		res = append(res, node.Val)
-		inorder(node.Right)
+		dfs(node.Right)
 	}
-	inorder(root)
+
+	dfs(root)
 	return res
 }

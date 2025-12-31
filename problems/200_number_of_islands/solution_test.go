@@ -1,4 +1,4 @@
-package numberofislands
+﻿package numberofislands
 
 import "testing"
 
@@ -9,7 +9,7 @@ func TestNumIslands(t *testing.T) {
 		want int
 	}{
 		{
-			name: "示例1",
+			name: "Example_1",
 			grid: [][]byte{
 				{'1', '1', '1', '1', '0'},
 				{'1', '1', '0', '1', '0'},
@@ -19,7 +19,7 @@ func TestNumIslands(t *testing.T) {
 			want: 1,
 		},
 		{
-			name: "示例2",
+			name: "Example_2",
 			grid: [][]byte{
 				{'1', '1', '0', '0', '0'},
 				{'1', '1', '0', '0', '0'},
@@ -32,14 +32,13 @@ func TestNumIslands(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// 复制grid，因为函数会修改原数组
 			grid := make([][]byte, len(tt.grid))
 			for i := range tt.grid {
 				grid[i] = make([]byte, len(tt.grid[i]))
 				copy(grid[i], tt.grid[i])
 			}
-			if got := NumIslands(grid); got != tt.want {
-				t.Errorf("NumIslands() = %v, want %v", got, tt.want)
+			if got := numIslands(grid); got != tt.want {
+				t.Errorf("numIslands() = %v, want %v", got, tt.want)
 			}
 		})
 	}

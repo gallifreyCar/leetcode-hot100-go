@@ -1,4 +1,4 @@
-package maximumdepthofbinarytree
+﻿package maximumdepth
 
 import "testing"
 
@@ -9,9 +9,9 @@ func TestMaxDepth(t *testing.T) {
 		want int
 	}{
 		{
-			name: "示例1",
+			name: "Example_1",
 			root: &TreeNode{
-				Val: 3,
+				Val:  3,
 				Left: &TreeNode{Val: 9},
 				Right: &TreeNode{
 					Val:   20,
@@ -22,21 +22,16 @@ func TestMaxDepth(t *testing.T) {
 			want: 3,
 		},
 		{
-			name: "单节点",
-			root: &TreeNode{Val: 1},
-			want: 1,
-		},
-		{
-			name: "空树",
-			root: nil,
-			want: 0,
+			name: "Example_2",
+			root: &TreeNode{Val: 1, Right: &TreeNode{Val: 2}},
+			want: 2,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := MaxDepth(tt.root); got != tt.want {
-				t.Errorf("MaxDepth() = %v, want %v", got, tt.want)
+			if got := maxDepth(tt.root); got != tt.want {
+				t.Errorf("maxDepth() = %v, want %v", got, tt.want)
 			}
 		})
 	}

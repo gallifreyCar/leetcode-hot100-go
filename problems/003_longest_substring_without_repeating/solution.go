@@ -1,51 +1,21 @@
-package longestsubstringwithoutrepeating
+﻿package longestsubstring
 
-// 3. 无重复字符的最长子串
-// 难度：中等
-// 标签：滑动窗口、哈希表
-// 链接：https://leetcode.cn/problems/longest_substring_without_repeating/
+func lengthOfLongestSubstring(s string) int {
+	// 婊戝姩绐楀彛
+	// start涓嶅姩锛宔nd鍚戝悗绉诲姩
+	// 褰揺nd閬囧埌閲嶅瀛楃锛宻tart搴旇鏀惧湪涓婁竴涓噸澶嶅瓧绗︾殑浣嶇疆鐨勫悗涓€浣嶏紝鍚屾椂璁板綍鏈€闀跨殑闀垮害
+	// key鍒ゆ柇鏄惁閲嶅锛寁alue鐢ㄦ壘鍒伴噸澶嶅瓧绗︾殑涓嬩竴涓綅缃?
 
-// LengthOfLongestSubstring 滑动窗口+哈希表
-// 时间复杂度: O(n)
-// 空间复杂度: O(字符集大小)
-func LengthOfLongestSubstring(s string) int {
-	if len(s) == 0 {
-		return 0
-	}
-	l, r := 0, 0
-	freq := make(map[byte]int)
-	maxLen := 0
-	for r < len(s) {
-		freq[s[r]]++
-		// 如果出现重复，移动左指针
-		for freq[s[r]] > 1 {
-			freq[s[l]]--
-			l++
+	res := 0
+	m := make(map[byte]int)
+	for start, end := 0, 0; end < len(s); end++ {
+		c := s[end]
+		//濡傛灉褰撳墠瀛楃宸茬粡鍑虹幇杩囷紝鑰屼笖鍦ㄦ垜浠獥鍙ｅ唴锛屽垯涓鸿涓洪噸澶嶅瓧绗?
+		if loc, ok := m[c]; ok && loc >= start {
+			start = loc + 1
 		}
-		maxLen = max(maxLen, r-l+1)
-		r++
+		m[c] = end
+		res = max(res, end-start+1)
 	}
-	return maxLen
-}
-
-// LengthOfLongestSubstringV2 优化：使用map存储索引
-// 时间复杂度: O(n)
-// 空间复杂度: O(字符集大小)
-func LengthOfLongestSubstringV2(s string) int {
-	if len(s) == 0 {
-		return 0
-	}
-	l, r := 0, 0
-	indexMap := make(map[byte]int)
-	maxLen := 0
-	for r < len(s) {
-		// 如果当前字符出现过，移动左指针到重复字符的下一个位置
-		if idx, exists := indexMap[s[r]]; exists && idx >= l {
-			l = idx + 1
-		}
-		indexMap[s[r]] = r
-		maxLen = max(maxLen, r-l+1)
-		r++
-	}
-	return maxLen
+	return res
 }

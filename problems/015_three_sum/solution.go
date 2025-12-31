@@ -1,32 +1,25 @@
-package threesum
+﻿package threesum
 
 import "sort"
 
-// 15. 三数之和
-// 难度：中等
-// 标签：双指针、数组、排序
-// 链接：https://leetcode.cn/problems/three_sum/
+func threeSum(nums []int) [][]int {
 
-// ThreeSum 双指针解法
-// 时间复杂度: O(n²)
-// 空间复杂度: O(1)
-func ThreeSum(nums []int) [][]int {
 	res := [][]int{}
-	// 先排序
+	// 鍏堟帓搴?
 	sort.Ints(nums)
 
-	// i 是第一个数字
+	// i 鏄涓€涓暟瀛?
 	for i := 0; i < len(nums); i++ {
-		l := i + 1         // 第二个数字
-		r := len(nums) - 1 // 第三个数字
-		// 第一个数字去重
+		l := i + 1         // 绗簩涓暟瀛?
+		r := len(nums) - 1 // 绗笁涓暟瀛?
+		// 绗竴涓暟瀛楀幓閲?
 		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
 		for l < r {
-			// 找个解
+			// 鎵句釜瑙?
 			if nums[i]+nums[l]+nums[r] == 0 {
-				// 先去重(找最中间的数）
+				// 鍏堝幓閲?鎵炬渶涓棿鐨勬暟锛?
 				for l < r && nums[l] == nums[l+1] {
 					l++
 				}
@@ -37,10 +30,11 @@ func ThreeSum(nums []int) [][]int {
 				l++
 				r--
 			} else if nums[i]+nums[l]+nums[r] > 0 {
-				r-- // 太大了
+				r-- // 澶ぇ浜?
 			} else if nums[i]+nums[l]+nums[r] < 0 {
-				l++ // 太小了
+				l++ // 澶皬浜?
 			}
+
 		}
 	}
 	return res

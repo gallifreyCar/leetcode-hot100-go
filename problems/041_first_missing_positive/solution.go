@@ -1,40 +1,36 @@
-package firstmissingpositive
+﻿package firstmissingpositive
 
-// 41. 缺失的第一个正数
-// 难度：困难
-// 标签：数组、哈希表
-// 链接：https://leetcode.cn/problems/first_missing_positive/
+func firstMissingPositive(nums []int) int {
+	//鍘熷湴绠楁硶锛岀敤涓嬫爣鏉ユ爣璁拌繖涓暟鏈夋病鏈夊嚭鐜拌繃
+	//鐢ㄦ璐熸暟鏉ユ爣璁帮紙涓嬫爣i-1瀵瑰簲鏁板瓧i)
 
-// FirstMissingPositive 原地哈希
-// 时间复杂度: O(n)
-// 空间复杂度: O(1)
-func FirstMissingPositive(nums []int) int {
-	n := len(nums)
-	// 第一次遍历：将所有负数、0和大于n的数改为n+1
-	for i := 0; i < n; i++ {
-		if nums[i] <= 0 || nums[i] > n {
-			nums[i] = n + 1
+	// 鍘熸潵鐨?鎴栬礋鏁扮洿鎺ョ疆涓虹敤杈圭晫澶栫殑浠绘剰涓€涓鏁帮紙涓嶇敤澶勭悊
+	for i, num := range nums {
+		if num <= 0 {
+			nums[i] = len(nums) + 1
 		}
 	}
 
-	// 第二次遍历：使用数组索引标记出现的正数
-	for i := 0; i < n; i++ {
-		abs := nums[i]
-		if abs < 0 {
-			abs = -abs
-		}
-		if abs <= n {
-			if nums[abs-1] > 0 {
-				nums[abs-1] = -nums[abs-1]
-			}
+	//濡傛灉num鐨勪笅鏍噉um-1瀛樺湪锛屽垯缃负璐熸暟
+	for _, num := range nums {
+		value := abs(num) //杩欓噷鍑虹幇鐨勮礋鏁版槸鍥犱负鍓嶇疆鎿嶄綔瀵艰嚧鐨?
+		if value-1 < len(nums) {
+			nums[value-1] = -abs(nums[value-1])
 		}
 	}
 
-	// 第三次遍历：找到第一个正数的位置
-	for i := 0; i < n; i++ {
-		if nums[i] > 0 {
+	//瀛樺湪姝ｆ暟灏辨槸缂哄皯鐨勯偅涓暟瀛?
+	for i, num := range nums {
+		if num > 0 {
 			return i + 1
 		}
 	}
-	return n + 1
+	return len(nums) + 1
+}
+
+func abs(num int) int {
+	if num < 0 {
+		return -num
+	}
+	return num
 }

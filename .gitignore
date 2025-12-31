@@ -15,6 +15,9 @@
 *.out
 go.work
 
+# Backup files
+main_backup.go
+
 # Dependency directories
 vendor/
 

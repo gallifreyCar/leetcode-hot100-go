@@ -1,21 +1,24 @@
-package subarraysumequalsk
+﻿package subarraysumequals
 
 import "testing"
 
-func TestSubarraySumEqualsK(t *testing.T) {
+func TestSubarraySum(t *testing.T) {
 	tests := []struct {
 		name string
-		// TODO: 添加测试用例字段
+		nums []int
+		k    int
+		want int
 	}{
-		{
-			name: "示例1",
-			// TODO: 填充测试数据
-		},
+		{"Example 1", []int{1, 1, 1}, 2, 2},
+		{"Example 2", []int{1, 2, 3}, 3, 2},
+		{"Negative numbers", []int{1, -1, 0}, 0, 3},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// TODO: 调用函数并验证结果
+			if got := SubarraySum(tt.nums, tt.k); got != tt.want {
+				t.Errorf("SubarraySum() = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }

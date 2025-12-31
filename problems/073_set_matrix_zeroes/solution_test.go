@@ -1,4 +1,4 @@
-package setmatrixzeroes
+﻿package setmatrixzeroes
 
 import (
 	"reflect"
@@ -12,30 +12,14 @@ func TestSetZeroes(t *testing.T) {
 		want   [][]int
 	}{
 		{
-			name: "示例1",
-			matrix: [][]int{
-				{1, 1, 1},
-				{1, 0, 1},
-				{1, 1, 1},
-			},
-			want: [][]int{
-				{1, 0, 1},
-				{0, 0, 0},
-				{1, 0, 1},
-			},
+			name:   "Example_1",
+			matrix: [][]int{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}},
+			want:   [][]int{{1, 0, 1}, {0, 0, 0}, {1, 0, 1}},
 		},
 		{
-			name: "示例2",
-			matrix: [][]int{
-				{0, 1, 2, 0},
-				{3, 4, 5, 2},
-				{1, 3, 1, 5},
-			},
-			want: [][]int{
-				{0, 0, 0, 0},
-				{0, 4, 5, 0},
-				{0, 3, 1, 0},
-			},
+			name:   "Example_2",
+			matrix: [][]int{{0, 1, 2, 0}, {3, 4, 5, 2}, {1, 3, 1, 5}},
+			want:   [][]int{{0, 0, 0, 0}, {0, 4, 5, 0}, {0, 3, 1, 0}},
 		},
 	}
 
@@ -46,20 +30,9 @@ func TestSetZeroes(t *testing.T) {
 				matrix[i] = make([]int, len(tt.matrix[i]))
 				copy(matrix[i], tt.matrix[i])
 			}
-			SetZeroes(matrix)
+			setZeroes(matrix)
 			if !reflect.DeepEqual(matrix, tt.want) {
-				t.Errorf("SetZeroes() = %v, want %v", matrix, tt.want)
-			}
-		})
-		t.Run(tt.name+"_V2", func(t *testing.T) {
-			matrix := make([][]int, len(tt.matrix))
-			for i := range tt.matrix {
-				matrix[i] = make([]int, len(tt.matrix[i]))
-				copy(matrix[i], tt.matrix[i])
-			}
-			SetZeroesV2(matrix)
-			if !reflect.DeepEqual(matrix, tt.want) {
-				t.Errorf("SetZeroesV2() = %v, want %v", matrix, tt.want)
+				t.Errorf("setZeroes() = %v, want %v", matrix, tt.want)
 			}
 		})
 	}

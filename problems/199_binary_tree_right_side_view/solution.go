@@ -1,9 +1,4 @@
-package binarytreerightsideview
-
-// 199. 二叉树的右视图
-// 难度：中等
-// 标签：树、广度优先搜索
-// 链接：https://leetcode.cn/problems/binary_tree_right_side_view/
+﻿package rightsideview
 
 type TreeNode struct {
 	Val   int
@@ -11,36 +6,28 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// RightSideView BFS
-// 时间复杂度: O(n)
-// 空间复杂度: O(n)
-func RightSideView(root *TreeNode) []int {
+func rightSideView(root *TreeNode) []int {
 	if root == nil {
-		return []int{}
+		return nil
 	}
-
-	res := []int{}
-	queue := []*TreeNode{root}
-
-	for len(queue) > 0 {
-		levelSize := len(queue)
-		for i := 0; i < levelSize; i++ {
-			node := queue[0]
-			queue = queue[1:]
-
-			// 每层最后一个节点就是右视图能看到的
-			if i == levelSize-1 {
-				res = append(res, node.Val)
+	que := make([]*TreeNode, 0)
+	que = append(que, root)
+	res := make([]int, 0)
+	for len(que) > 0 {
+		size := len(que)
+		tmp := make([]int, 0)
+		for i := 0; i < size; i++ {
+			cur := que[0] //闃熷ご鍑哄垪
+			que = que[1:]
+			tmp = append(tmp, cur.Val)
+			if cur.Left != nil {
+				que = append(que, cur.Left)
 			}
-
-			if node.Left != nil {
-				queue = append(queue, node.Left)
-			}
-			if node.Right != nil {
-				queue = append(queue, node.Right)
+			if cur.Right != nil {
+				que = append(que, cur.Right)
 			}
 		}
+		res = append(res, tmp[len(tmp)-1]) //鍙闃熷熬
 	}
-
 	return res
 }
