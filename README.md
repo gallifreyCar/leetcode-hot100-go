@@ -45,7 +45,7 @@ go test ./problems/049_group_anagrams -bench=. -benchmem
 
 ## 📊 题目列表
 
-**进度：61 / 100 题**
+**进度：64 / 100 题**
 
 <details open>
 <summary><b>🔑 哈希表 (Hash Table)</b></summary>
@@ -175,8 +175,8 @@ go test ./problems/049_group_anagrams -bench=. -benchmem
 | 039 | [组合总和](problems/039_combination_sum) | 中等 | 📝 |
 | 022 | [括号生成](problems/022_generate_parentheses) | 中等 | 📝 |
 | 079 | [单词搜索](problems/079_word_search) | 中等 | 📝 |
-| 131 | [分割回文串](problems/131_palindrome_partitioning) | 中等 | 📝 |
-| 051 | [N皇后](problems/051_n_queens) | 困难 | 📝 |
+| 131 | [分割回文串](problems/131_palindrome_partitioning) | 中等 | ✅ |
+| 051 | [N皇后](problems/051_n_queens) | 困难 | ✅ |
 
 </details>
 
@@ -185,7 +185,7 @@ go test ./problems/049_group_anagrams -bench=. -benchmem
 
 | # | 题目 | 难度 | 状态 |
 |---|------|------|------|
-| 035 | [搜索插入位置](problems/035_search_insert_position) | 简单 | 📝 |
+| 035 | [搜索插入位置](problems/035_search_insert_position) | 简单 | ✅ |
 | 074 | [搜索二维矩阵](problems/074_search_2d_matrix) | 中等 | 📝 |
 | 034 | [在排序数组中查找元素的第一个和最后一个位置](problems/034_find_first_and_last_position) | 中等 | 📝 |
 | 033 | [搜索旋转排序数组](problems/033_search_in_rotated_sorted_array) | 中等 | 📝 |
